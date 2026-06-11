@@ -3,11 +3,11 @@
 | Société | Interlocuteurs | Services | Mail | Téléphone | Notes |
 | --- | --- | --- | --- | --- | --- |
 | AXA | Accueil | nc | @axa.fr | nc | nc |
-| Crédit Agricole | Accueil | Accueil | @credit-agricole.fr | nc | nc |
-| La Banque Postale | Accueil | Accueil | @banque-postale.fr | nc | nc |
-| Orange | Accueil | Accueil | @orange.fr | nc | nc |
-| L'Oréal | Accueil | Accueil | @loreal.fr | nc | nc |
-| Capgemini | Accueil | Accueil | @capgemini.com | nc | nc |
+| Crédit Agricole | Accueil | Accueil | nc | nc | nc |
+| La Banque Postale | Accueil | Accueil | nc | nc | nc |
+| Orange | Accueil | Accueil | nc | nc | nc |
+| L'Oréal | Accueil | Accueil | nc | nc | nc |
+| Capgemini | Accueil | Accueil | nc | nc | nc |
 
 - AXA → RSE Groupe + AXA Climate + AXA People Protectors
 - Orange → Orange Digital Center + Direction RSE Groupe
@@ -41,17 +41,14 @@ Téléphone : +33 1 57 72 90 45
 SIREN : 421 100 645
 Adresse : 115 RUE DE SEVRES 75006 PARIS
 DPO : <dpo.groupelaposte@laposte.fr>
-Téléphone Service Presse : +33 155 442 237
-Mail : <service.presse@laposte.fr>
-Directrice Communication : Virginie Gueidier
-Mail : <virginie.gueidier@laposte.fr>
+Téléphone accueil : 01 55 44 00 00
 
 ## Orange
 
 SIREN : 380 129 866
 Adresse : 111 QUAI DU PRESIDENT ROOSEVELT 92130 ISSY-LES-MOULINEAUX
 DPO : <group-dpo.donnees-personnelles@orange.com>
-Téléphone : +33 1 444 422 222
+Téléphone : +33 144 442 222
 Directeur des Relations Médias : Tom Wright
 Mail : <https://www.orange.com/fr/contact-email/2>
 

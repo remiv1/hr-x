@@ -29,7 +29,7 @@ On retrouve ici, d'une certaine façon une lutte des classes, non pas dans le se
 
 Du fait de cette asymétrie, cela éxonère de la réciptrocité. Dans une relation commerciale normale, le vendeur prend soin de l'acheteur. Ici, les rôles sont étrangement inversés : le "vendeur" (candidat) n'a aucun levier sur l'"acheteur" (le recruteur), si ce n'est la valorisation de ses compétences, mais demandeur d'emploi n'est pas un métier... et les règles de la courtoisie économique ne s'appliquent plus.
 
-Pourquoi parler de lutte des classes ? Parce que la soumission qui n'est pas matérielle est intériorisée : le candidat finit par se compoter comme si le mépris était normal, voire mérité. Il s'auto-censure, il dur-adapter son discours, il attend sans se plaindre. C'est ce que Bourdieu appelait _La violence symbolique_ : la domination fonctionne mieux quand le dominé la reconnaît comme légitime et cesse de la contester.
+Pourquoi parler de lutte des classes ? Parce que la soumission qui n'est pas matérielle est intériorisée : le candidat finit par se compoter comme si le mépris était normal, voire mérité. Il s'auto-censure, il doit sur-adapter son discours, il attend sans se plaindre. C'est ce que Bourdieu appelait _La violence symbolique_ : la domination fonctionne mieux quand le dominé la reconnaît comme légitime et cesse de la contester.
 
 Dans le recrutement, ce mécanisme est très visible : le candidat qui s'excuse de candidater, qui remercie pour un refus sans explication, qui reformule son identité professionnelle à chaque poste pour coller à une fiche. Il a intégré la règle du jeu asymétrique... c'est comme ça !
 
@@ -45,7 +45,7 @@ J'en vois 4 actuellement et je ne les classerai pas, car chacunes ont leurs avan
 
 | Solution | Modalités | Avantages | Inconvénients |
 | --- | --- | --- | --- |
-| Réglementaire | Obligation de réponse, délais, transparence des critères (Modèle RGPD appliqué au recrutement | Possibilité d'apporter une réponse par l'obligation et l'uniformisation des règles du jeu | Chacun répond à la contrainte réglementaire en faisant le minimum, on n'entre pas dans la maximisation des gains |
+| Réglementaire | Obligation de réponse, délais, transparence des critères (Modèle RGPD appliqué au recrutement) | Possibilité d'apporter une réponse par l'obligation et l'uniformisation des règles du jeu | Chacun répond à la contrainte réglementaire en faisant le minimum, on n'entre pas dans la maximisation des gains |
 | Culturelle | Prise de conscience par la communication et l'éducation | Pas d'obligation, mais une volonté de bien faire | Lent et quasi impossible du fait de l'encrage des habitude. Correspond à une solution de reconstruction |
 | Plateforme Nationale | Mise en place d'une place de marché publique | Equilibre de marché pour la rencontre des acteurs | Coûts élevés et interventionnisme publique |
 | Standard de données | Mise en place d'un format adopté par les grands acteurs comme ONIX pour le monde du livre. La donnée reste donnée, l'interfaçage appartient à chaque entreprise. | Création d'une plateforme candidat pour la génération de la donnée dans un format portable & déposable pour tous les acteurs | Un standard ne marche que s'il est adopté |
