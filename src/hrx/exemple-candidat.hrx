@@ -1,0 +1,149 @@
+{
+  "$hrx": {
+    "version": "1.0",
+    "schema":  "https://schema.audit-io.fr/hrx/1.0",
+    "issuer":  "audit-io",
+    "date":    "2026-06-14",
+    "lang":    "en"
+  },
+
+  "identity": {
+    "civility":   "Mrs.",
+    "last_name":  "Martin",
+    "first_name": "Claire",
+    "contacts": [
+      { "type": "email",    "value": "claire.martin@example.fr",            "primary": true },
+      { "type": "phone",    "value": "+33 6 12 34 56 78" },
+      { "type": "linkedin", "value": "https://linkedin.com/in/claire-martin" },
+      { "type": "github",   "value": "https://github.com/clairemartin" },
+      { "type": "x",        "value": "https://x.com/clairemartin" }
+    ],
+    "location": {
+      "city":        "Lyon",
+      "postal_code": "69003",
+      "country":     "FR",
+      "mobility":    "national"
+    }
+  },
+
+  "skills": {
+    "hard": [
+      {
+        "domain": "Audit & Compliance",
+        "items": [
+          { "label": "Operational audit", "level": "expert" },
+          { "label": "Risk mapping",      "level": "expert" },
+          { "label": "GDPR compliance",   "level": "advanced" }
+        ]
+      },
+      {
+        "domain": "Data & Architecture",
+        "items": [
+          { "label": "SQL",               "level": "advanced" },
+          { "label": "Python",            "level": "intermediate" },
+          { "label": "SaaS architecture", "level": "advanced" }
+        ]
+      }
+    ],
+    "soft": [
+      {
+        "domain": "Leadership & Communication",
+        "items": [
+          { "label": "Client-facing communication", "level": "expert" },
+          { "label": "Cross-functional facilitation", "level": "advanced" }
+        ]
+      },
+      {
+        "domain": "Organisation",
+        "items": [
+          { "label": "Autonomy",         "level": "expert" },
+          { "label": "Prioritisation",   "level": "advanced" }
+        ]
+      }
+    ]
+  },
+
+  "experiences": [
+    {
+      "position":     "External Auditor",
+      "organisation": "Cabinet Conseil RH",
+      "sector":       "Consulting",
+      "period":       { "start": "2021-03", "end": null },
+      "description":  "Continuity audit and GDPR compliance for industrial SMEs.",
+      "achievements": [
+        "GDPR compliance for 8 clients in 18 months",
+        "30% reduction in audit cycle time through structured tooling"
+      ],
+      "projects": [
+        {
+          "title":       "Intelligent Document Management POC",
+          "description": "Design and deployment of an AI-powered GED for a mid-sized industrial client.",
+          "role":        "Lead Architect",
+          "period":      { "start": "2023-09", "end": "2024-03" },
+          "url":         "https://audit-io.fr/projets/ged-intelligente"
+        }
+      ]
+    },
+    {
+      "position":     "Risk Manager",
+      "organisation": "Banque Régionale Est",
+      "sector":       "Banking & Insurance",
+      "period":       { "start": "2015-09", "end": "2021-02" },
+      "description":  "Oversight of internal control framework.",
+      "achievements": [
+        "Deployed ISO 31000 risk reference framework",
+        "Trained 45 staff on control procedures"
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "title":         "Master Audit & Management Control",
+      "institution":   "IAE Lyon",
+      "year":          2015,
+      "certification": false
+    },
+    {
+      "title":         "Data Engineer Certification",
+      "institution":   "DataScientest",
+      "year":          2021,
+      "certification": true
+    }
+  ],
+
+  "credentials": {
+    "awards": [
+      {
+        "title":       "Best Audit Innovation — SME Category",
+        "issuer":      "Club des Auditeurs Internes de Lyon",
+        "year":        2023,
+        "description": "Recognised for the structured GDPR audit methodology."
+      }
+    ],
+    "references": [
+      {
+        "name":         "Jean Dupuis",
+        "position":     "DSI",
+        "organisation": "Industrielle du Rhône",
+        "contact":      "j.dupuis@industrielle-du-rhone.fr"
+      }
+    ],
+    "bibliography": [
+      {
+        "title":   "Souveraineté numérique et dépendance SaaS : enjeux pour les PME",
+        "authors": ["Claire Martin"],
+        "year":    2024,
+        "type":    "article",
+        "url":     "https://audit-io.fr/blog/souverainete-numerique"
+      }
+    ]
+  },
+
+  "preferences": {
+    "availability": "2026-09-01",
+    "contracts":    ["mission", "permanent"],
+    "remote":       "partial",
+    "salary_min":   55000
+  }
+}
