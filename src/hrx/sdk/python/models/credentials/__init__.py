@@ -9,6 +9,7 @@ This part of the hrx schema is used to store credentials like
 
 See https://schema.audit-io.fr/hrx/1.0/documentation
 """
+from __future__ import annotations
 
 from typing import Optional
 
@@ -24,6 +25,7 @@ __all__ = [
     "BibliographyItem",
     "Reference",
     "ReferenceItem",
+    "Credential",
 ]
 
 __version__ = "1.0.0"
