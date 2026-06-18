@@ -9,3 +9,6 @@ from __future__ import annotations
 from .models import Candidate
 
 __all__ = ["Candidate"]
+
+# package version
+__version__ = "0.1.0"
