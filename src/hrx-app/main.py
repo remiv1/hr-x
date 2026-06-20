@@ -12,9 +12,8 @@ from __future__ import annotations
 import io
 import json
 import os
-from typing import Any
+from typing import Any, Literal
 import uuid
-import urllib.request
 
 from flask import (
     Flask,
@@ -26,74 +25,28 @@ from flask import (
     session,
     Response,
 )
+from werkzeug.wrappers import Response as WerkzeugResponse
 from forms import IdentityForm
 from jsonschema import ValidationError, validate
 
-
-APP_DIR = os.path.dirname(__file__)
-SCHEMA_PATH = os.path.abspath(
-    os.path.join(APP_DIR, "..", "hrx", "models", "hrx-schema-v1.json")
-)
-SCHEMA_REMOTE = "https://schema.audit-io.fr/hr-x/v1.0/schema"
+from utils import load_schema
 
 # Simple in-memory payload store keyed by a short id stored in session
 PAYLOAD_STORE: dict[str, dict[str, Any]] = {}
-
-
-def load_schema() -> dict[str, Any]:
-    """
-    Load schema from file.
-    
-    Returns:
-        dict[str, Any]: schema
-    """
-    # Try to fetch remote canonical schema; fall back to local file
-    try:
-        with urllib.request.urlopen(SCHEMA_REMOTE, timeout=5) as resp:
-            data = resp.read()
-            return json.loads(data.decode("utf-8"))
-    except Exception:
-        # fallback to local schema file
-        with open(SCHEMA_PATH, "r", encoding="utf-8") as fh:
-            return json.load(fh)
-
-
+INDEX_TEMPLATE = "index.html"
 app: Flask = Flask(__name__, static_folder="static", template_folder="templates")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret")
-schema: dict[str, Any] = {}
 
-
-def _load_schema():
-    global schema   # pylint disable=W0603
-    try:
-        schema = load_schema()
-    except Exception:
-        schema = {}
-
-
-# Register a startup hook compatible with multiple Flask versions.
-# Use programmatic registration to avoid issues with static type checkers
-if getattr(app, "before_serving", None):
-    def _on_startup() -> None:
-        _load_schema()
-
-    # Register the callable; mypy/linters may not know about this attr
-    app.before_serving(_on_startup)  # type: ignore[attr-defined]
-else:
-    # Fallback: load at import time
-    _load_schema()
-
-
-@app.route("/")
-def index():
+@app.get("/")
+def index() -> str:
     """
     Index page
     """
-    return render_template("index.html")
+    return render_template(INDEX_TEMPLATE)
 
 
-@app.route("/partial/identity")
-def partial_identity():
+@app.get("/partial/identity")
+def partial_identity() -> str:
     """
     Partial identity loader for HTMX
     """
@@ -105,8 +58,8 @@ def partial_identity():
     return render_template("_identity.html", identity_form=form, payload_obj=payload)
 
 
-@app.route("/section/<name>")
-def section(name: str):
+@app.get("/section/<name>")
+def section(name: str) -> str | tuple[Literal[''], Literal[404]]:
     """
     Section loader for HTMX
     """
@@ -122,8 +75,8 @@ def section(name: str):
     return "", 404
 
 
-@app.route('/section/new/<item>')
-def new_item(item: str):
+@app.get('/section/new/<item>')
+def new_item(item: str) -> tuple[Literal[''], Literal[404]] | str:
     """
     New item section
     """
@@ -145,8 +98,8 @@ def new_item(item: str):
         return "", 404
     return doc
 
-@app.route('/section/education')
-def section_education():
+@app.get('/section/education')
+def section_education() -> str:
     """
     Education section
     """
@@ -156,7 +109,7 @@ def section_education():
 
 
 @app.route('/section/credentials')
-def section_credentials():
+def section_credentials() -> str:
     """
     Credentials section
     """
@@ -165,8 +118,8 @@ def section_credentials():
     return render_template('_credentials.html', payload_obj=payload)
 
 
-@app.route('/section/preferences')
-def section_preferences():
+@app.get('/section/preferences')
+def section_preferences() -> str:
     """
     Preferences section
     """
@@ -175,11 +128,12 @@ def section_preferences():
     return render_template('_preferences.html', payload_obj=payload)
 
 
-@app.route("/validate", methods=["POST"])
+@app.post("/validate")
 def validate_payload() -> tuple[dict[str, Any], int]:
     """
     Validate payload
     """
+    schema = load_schema()
     data = request.get_json(force=True)
     if not schema:
         return {"ok": False, "errors": ["Schema not found on server"]}, 500
@@ -190,8 +144,8 @@ def validate_payload() -> tuple[dict[str, Any], int]:
         return {"ok": False, "errors": [e.message]}, 400
 
 
-@app.route("/upload", methods=["POST"])
-def upload_hrx():
+@app.post("/upload")
+def upload_hrx() -> WerkzeugResponse | str:
     """
     Upload HRX file
     """
@@ -199,9 +153,10 @@ def upload_hrx():
     if not f:
         return redirect(url_for("index"))
     try:
-        payload = json.load(f)
-    except Exception as e:
-        return render_template("index.html", error=f"Échec lecture fichier: {e}")
+        raw = f.stream.read()
+        payload = json.loads(raw.decode("utf-8"))
+    except json.JSONDecodeError as e:
+        return render_template(INDEX_TEMPLATE, error=f"Échec lecture fichier: {e}")
 
     # Store payload server-side and keep a short id in the session so HTMX section
     # routes can read it and pre-fill partials.
@@ -212,18 +167,19 @@ def upload_hrx():
     identity_form = IdentityForm(data=payload.get("identity", {}))
 
     return render_template(
-        "index.html",
+        INDEX_TEMPLATE,
         payload=json.dumps(payload, ensure_ascii=False, indent=2),
         payload_obj=payload,
         identity_form=identity_form,
     )
 
 
-@app.route("/download", methods=["POST"])
+@app.post("/download")
 def download_hrx() -> tuple[dict[str, Any], int] | Response:
     """
     Download HRX file
     """
+    schema = load_schema()
     data = request.get_json(force=True)
     if not schema:
         return {"ok": False, "errors": ["Schema missing"]}, 500
