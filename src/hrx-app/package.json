@@ -1,0 +1,12 @@
+{
+  "name": "hrx-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build-css": "sass --no-source-map scss:static/css --style=compressed",
+    "watch-css": "sass --watch scss:static/css"
+  },
+  "devDependencies": {
+    "sass": "^1.79.0"
+  }
+}

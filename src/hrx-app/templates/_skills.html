@@ -1,0 +1,49 @@
+<section id="section-skills">
+  <h3>Compétences</h3>
+
+  <div id="skills-list">
+    {%- if payload_obj and payload_obj.get('skills') -%}
+      {%- set skills = payload_obj.get('skills') -%}
+      {%- if skills is mapping -%}
+        {%- for level in ['hard','soft'] -%}
+          {%- if skills.get(level) -%}
+            <div class="skill-group">
+              <h4>{{ level|capitalize }}</h4>
+              {%- for domain in skills.get(level, []) -%}
+                <div class="skill-domain">
+                  <h5>{{ domain.get('domain') }}</h5>
+                  <ul>
+                    {%- for item in domain.get('items', []) -%}
+                      <li>{{ item.get('label') }} <small class="muted">({{ item.get('level') }})</small></li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for domain in skills -%}
+          <div class="skill-domain">
+            <h4>{{ domain.get('domain') }}</h4>
+            <ul>
+              {%- for item in domain.get('items', []) -%}
+                <li>{{ item.get('name', item.get('label')) }}</li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    {%- else -%}
+      <p class="muted">Aucune compétence chargée.</p>
+    {%- endif -%}
+  </div>
+
+  <div class="actions">
+    <button type="button"
+            hx-get="{{ url_for('new_item', item='skill') }}"
+            hx-target="#skills-list"
+            hx-swap="beforeend"
+            class="btn">Ajouter une compétence</button>
+  </div>
+</section>

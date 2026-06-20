@@ -1,0 +1,65 @@
+<div>
+  <h2>Identité</h2>
+  <form id="identity-form">
+    <div class="row">
+      <div class="col">
+        <label for="civility">Civilité</label>
+        <select id="civility" name="identity[civility]">
+          {% set civ = payload_obj.get('identity', {}).get('civility') if payload_obj else None %}
+          <option value="Mr." {{ 'selected' if civ=='Mr.' else '' }}>Mr.</option>
+          <option value="Mrs." {{ 'selected' if civ=='Mrs.' else '' }}>Mrs.</option>
+          <option value="Dr." {{ 'selected' if civ=='Dr.' else '' }}>Dr.</option>
+          <option value="Prof." {{ 'selected' if civ=='Prof.' else '' }}>Prof.</option>
+          <option value="Mx." {{ 'selected' if civ=='Mx.' else '' }}>Mx.</option>
+          <option value="Me" {{ 'selected' if civ=='Me' else '' }}>Me</option>
+          <option value="other" {{ 'selected' if civ not in ['Mr.','Mrs.','Dr.','Prof.','Mx.','Me'] and civ }} >other</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="first_name">Prénom</label>
+        <input id="first_name" name="identity[first_name]" value="{{ payload_obj.get('identity', {}).get('first_name', '') if payload_obj else '' }}" />
+      </div>
+      <div class="col">
+        <label for="last_name">Nom</label>
+        <input id="last_name" name="identity[last_name]" value="{{ payload_obj.get('identity', {}).get('last_name', '') if payload_obj else '' }}" />
+      </div>
+    </div>
+
+    <div style="margin-top:8px">
+      <label>Contacts</label>
+      <div id="contacts">
+        {%- if payload_obj and payload_obj.get('identity', {}).get('contacts') -%}
+          {%- for c in payload_obj.get('identity', {}).get('contacts') -%}
+            <div class="contact-row">
+              <select name="identity[contacts][{{ loop.index0 }}][type]" class="contact-type">
+                {% set t = c.get('type','') %}
+                <option value="email" {{ 'selected' if t=='email' else '' }}>email</option>
+                <option value="phone" {{ 'selected' if t=='phone' else '' }}>phone</option>
+                <option value="linkedin" {{ 'selected' if t=='linkedin' else '' }}>linkedin</option>
+                <option value="github" {{ 'selected' if t=='github' else '' }}>github</option>
+                <option value="x" {{ 'selected' if t=='x' else '' }}>x</option>
+                <option value="website" {{ 'selected' if t=='website' else '' }}>website</option>
+                <option value="other" {{ 'selected' if t not in ['email','phone','linkedin','github','x','website'] and t }} >other</option>
+              </select>
+              <input name="identity[contacts][{{ loop.index0 }}][value]" class="contact-value" placeholder="valeur" value="{{ c.get('value','') }}" />
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <div class="contact-row">
+            <select name="identity[contacts][0][type]" class="contact-type">
+              <option value="email">email</option>
+              <option value="phone">phone</option>
+              <option value="linkedin">linkedin</option>
+              <option value="github">github</option>
+              <option value="x">x</option>
+              <option value="website">website</option>
+              <option value="other">other</option>
+            </select>
+            <input name="identity[contacts][0][value]" class="contact-value" placeholder="valeur" />
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="actions"><button type="button" id="add-contact" class="ghost">Ajouter contact</button></div>
+    </div>
+  </form>
+</div>

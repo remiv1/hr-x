@@ -1,0 +1,9 @@
+<div>
+  <h2>Expériences</h2>
+  <div id="experiences-list">
+    {% include '_experience_item.html' %}
+  </div>
+  <div class="actions" style="margin-top:8px">
+    <button class="ghost" hx-get="/section/new/experience" hx-target="#experiences-list" hx-swap="afterend">Ajouter expérience</button>
+  </div>
+</div>
