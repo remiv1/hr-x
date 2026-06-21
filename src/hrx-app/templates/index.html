@@ -6,7 +6,6 @@
   <div class="card">
     <div class="row">
       <div class="col">
-        <h1>HRX — Génération de CV électronique</h1>
         <p class="lead muted">Remplissez les onglets et téléchargez votre fichier HRX.</p>
       </div>
       <div class="col" style="max-width:260px">
@@ -20,21 +19,63 @@
   </div>
 
   <div class="tabs card">
-    <button hx-get="/section/identity" hx-target="#tab-content" hx-swap="innerHTML" class="active">Identité</button>
-    <button hx-get="/section/skills" hx-target="#tab-content" hx-swap="innerHTML">Compétences</button>
-    <button hx-get="/section/experiences" hx-target="#tab-content" hx-swap="innerHTML">Expériences</button>
-    <button hx-get="/section/education" hx-target="#tab-content" hx-swap="innerHTML">Éducation</button>
-    <button hx-get="/section/credentials" hx-target="#tab-content" hx-swap="innerHTML">Credentials</button>
-    <button hx-get="/section/preferences" hx-target="#tab-content" hx-swap="innerHTML">Préférences</button>
+    <button class="active" data-target="#tab-identity">Identité</button>
+    <button data-target="#tab-skills">Compétences</button>
+    <button data-target="#tab-experiences">Expériences</button>
+    <button data-target="#tab-education">Éducation</button>
+    <button data-target="#tab-credentials">Credentials</button>
+    <button data-target="#tab-preferences">Préférences</button>
   </div>
 
-  <div id="tab-content" class="card">
-    {% include '_identity.html' %}
+  <div id="tab-panes">
+    <div id="tab-identity" class="card tab-pane">
+      <div hx-get="/section/identity" hx-trigger="load" hx-swap="innerHTML"></div>
+    </div>
+
+    <div id="tab-skills" class="card tab-pane" hidden>
+      <div hx-get="/section/skills" hx-trigger="load" hx-swap="innerHTML"></div>
+    </div>
+
+    <div id="tab-experiences" class="card tab-pane" hidden>
+      <div hx-get="/section/experiences" hx-trigger="load" hx-swap="innerHTML"></div>
+    </div>
+
+    <div id="tab-education" class="card tab-pane" hidden>
+      <div hx-get="/section/education" hx-trigger="load" hx-swap="innerHTML"></div>
+    </div>
+
+    <div id="tab-credentials" class="card tab-pane" hidden>
+      <div hx-get="/section/credentials" hx-trigger="load" hx-swap="innerHTML"></div>
+    </div>
+
+    <div id="tab-preferences" class="card tab-pane" hidden>
+      <div hx-get="/section/preferences" hx-trigger="load" hx-swap="innerHTML"></div>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>Aperçu JSON</h2>
-    <textarea id="json-preview" rows="12"></textarea>
+  <script>
+    document.addEventListener('click', function (e) {
+      const btn = e.target.closest('.tabs.card button');
+      if (!btn) return;
+      e.preventDefault();
+      document.querySelectorAll('.tabs.card button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const target = btn.getAttribute('data-target');
+      if (!target) return;
+      document.querySelectorAll('.tab-pane').forEach(p => p.hidden = true);
+      const pane = document.querySelector(target);
+      if (pane) pane.hidden = false;
+    });
+  </script>
+
+  <div class="card preview-card">
+    <div class="card-heading">
+      <div>
+        <h2>Aperçu JSON</h2>
+        <p class="muted">Consultez, validez et exportez votre fichier HRX en toute simplicité.</p>
+      </div>
+      <button id="open-json-preview" class="primary">Ouvrir l’aperçu</button>
+    </div>
     <div class="actions">
       <button id="save-local" class="ghost">Sauvegarder local</button>
       <button id="load-local" class="ghost">Charger local</button>
@@ -43,6 +84,69 @@
     </div>
   </div>
 </div>
+
+<div id="json-preview-modal" class="modal" hidden>
+  <div class="modal-backdrop" data-close-modal></div>
+  <dialog class="modal-dialog" aria-modal="true" aria-labelledby="json-preview-title">
+    <div class="modal-header">
+      <div>
+        <h3 id="json-preview-title">Aperçu JSON</h3>
+        <p class="muted">Le contenu est mis à jour à chaque modification.</p>
+      </div>
+      <button type="button" class="icon-button" data-close-modal aria-label="Fermer">×</button>
+    </div>
+    <textarea id="json-preview" rows="22" spellcheck="false"></textarea>
+    <div class="modal-footer">
+      <button type="button" class="ghost" id="copy-json-preview">Copier</button>
+      <button type="button" class="primary" data-close-modal>Fermer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('json-preview-modal');
+    const openPreviewBtn = document.getElementById('open-json-preview');
+    const copyBtn = document.getElementById('copy-json-preview');
+
+    const openModal = () => {
+      if (!modal) return;
+      modal.hidden = false;
+      modal.style.display = 'grid';
+      document.body.classList.add('modal-open');
+      const preview = document.getElementById('json-preview');
+      if (preview) preview.focus();
+    };
+
+    const closeModal = () => {
+      if (!modal) return;
+      modal.hidden = true;
+      modal.style.display = 'none';
+      document.body.classList.remove('modal-open');
+    };
+
+    openPreviewBtn?.addEventListener('click', openModal);
+    document.querySelectorAll('[data-close-modal]').forEach((el) => {
+      el.addEventListener('click', closeModal);
+    });
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal?.hidden) closeModal();
+    });
+    copyBtn?.addEventListener('click', async () => {
+      const preview = document.getElementById('json-preview');
+      if (!preview) return;
+      await navigator.clipboard.writeText(preview.value);
+      const original = copyBtn.textContent;
+      copyBtn.textContent = 'Copié !';
+      setTimeout(() => {
+        copyBtn.textContent = original;
+      }, 1400);
+    });
+  });
+</script>
 
 {% if payload %}
   <div class="card">

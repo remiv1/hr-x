@@ -14,8 +14,9 @@ pip install dist/hrxlib-0.1.0-py3-none-any.whl
 Usage:
 
 ```python
-from hrx import Candidate
-print(Candidate)
+from hrx import HRX
+
+candidate = HRX(Path("candidate_hrx.hrx")).candidate
 ```
 
 Licence: MIT
