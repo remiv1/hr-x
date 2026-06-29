@@ -1,7 +1,8 @@
 // hrx.js — gère le draft local, la prévisualisation, upload et download
 document.addEventListener('DOMContentLoaded', () => {
   const preview = document.getElementById('json-preview');
-  const addContactBtn = document.getElementById('add-contact');
+  // dynamic elements loaded by HTMX may appear after DOMContentLoaded;
+  // use event delegation for add/remove controls so handlers work for server-rendered fragments
   const saveLocal = document.getElementById('save-local');
   const loadLocal = document.getElementById('load-local');
   const validateBtn = document.getElementById('validate');
@@ -30,22 +31,36 @@ document.addEventListener('DOMContentLoaded', () => {
       const domain = item.querySelector('.skill-domain')?.value || '';
       const label = item.querySelector('.skill-label')?.value || '';
       const level = item.querySelector('.skill-level')?.value || '';
+      const type = item.querySelector('.skill-type')?.value || 'hard';
       if (!domain) return;
-      // try to find existing domain group
-      let group = obj.skills.hard.find(g => g.domain === domain);
-      if (!group) { group = { domain: domain, items: [] }; obj.skills.hard.push(group); }
+      // try to find existing domain group in correct skill type
+      let group = (obj.skills[type]||[]).find(g => g.domain === domain);
+      if (!group) { group = { domain: domain, items: [] }; obj.skills[type].push(group); }
       group.items.push({ label, level });
     });
     // gather experiences
     obj.experiences = [];
-    document.querySelectorAll('.experience-item').forEach(item => {
+    const errors = [];
+    document.querySelectorAll('.experience-item').forEach((item, idx) => {
       const position = item.querySelector('.exp-position')?.value || '';
       const organisation = item.querySelector('.exp-organisation')?.value || '';
       const sector = item.querySelector('.exp-sector')?.value || '';
-      const start = item.querySelector('.exp-start')?.value || '';
-      const end = item.querySelector('.exp-end')?.value || null;
+      const startEl = item.querySelector('.exp-start');
+      const endEl = item.querySelector('.exp-end');
+      const start = startEl?.value || '';
+      const end = endEl?.value || null;
       const description = item.querySelector('.exp-description')?.value || '';
       if (!position || !organisation) return;
+      // validate date formats but still include the experience in output
+      const dateRe = /^\d{4}(-\d{2})?$/;
+      if (start && !dateRe.test(start)) {
+        errors.push(`Expérience ${idx+1}: début invalide (attendu YYYY ou YYYY-MM)`);
+        if (startEl) startEl.classList.add('invalid');
+      } else if (startEl) startEl.classList.remove('invalid');
+      if (end && !dateRe.test(end)) {
+        errors.push(`Expérience ${idx+1}: fin invalide (attendu YYYY ou YYYY-MM)`);
+        if (endEl) endEl.classList.add('invalid');
+      } else if (endEl) endEl.classList.remove('invalid');
       obj.experiences.push({ position, organisation, sector, period: { start, end }, description });
     });
     // education
@@ -89,6 +104,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const salary = document.querySelector('.pref-salary')?.value || null;
     obj.preferences.salary_min = salary ? parseInt(salary) : null;
     if (preview) preview.value = JSON.stringify(obj, null, 2);
+    // display form errors if any
+    const errsElId = 'form-errors';
+    let errsEl = document.getElementById(errsElId);
+    if (!errsEl) {
+      errsEl = document.createElement('div');
+      errsEl.id = errsElId;
+      errsEl.style.margin = '8px 0';
+      errsEl.style.color = '#c00';
+      const parent = document.querySelector('.container') || document.body;
+      parent.insertBefore(errsEl, parent.firstChild);
+    }
+    if (errors.length) {
+      errsEl.innerText = 'Erreurs de formulaire:\n' + errors.join('\n');
+      // disable download
+      if (downloadBtn) downloadBtn.disabled = true;
+      window._hrx_form_errors = errors;
+    } else {
+      errsEl.innerText = '';
+      if (downloadBtn) downloadBtn.disabled = false;
+      window._hrx_form_errors = [];
+    }
   }
 
   function addContactRow() {
@@ -110,7 +146,35 @@ document.addEventListener('DOMContentLoaded', () => {
     div.querySelector('.remove-contact').addEventListener('click', () => { div.remove(); updatePreview(); });
   }
 
-  addContactBtn?.addEventListener('click', () => { addContactRow(); });
+  // delegation for add/remove buttons (works for HTMX-inserted fragments)
+  document.body.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    // add contact
+    if (btn.id === 'add-contact') {
+      e.preventDefault();
+      addContactRow();
+      return;
+    }
+    // mapping remove class -> ancestor selector to remove
+    const removeMap = {
+      'remove-contact': '.contact-row',
+      'remove-skill': '.skill-item',
+      'remove-experience': '.experience-item',
+      'remove-education': '.education-item',
+      'remove-award': '.award-item',
+      'remove-reference': '.reference-item',
+      'remove-bibliography': '.bibliography-item'
+    };
+    for (const cls in removeMap) {
+      if (btn.classList.contains(cls)) {
+        const ancestor = btn.closest(removeMap[cls]);
+        if (ancestor) ancestor.remove();
+        updatePreview();
+        return;
+      }
+    }
+  });
 
   document.body.addEventListener('input', () => { updatePreview(); });
 
@@ -153,6 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
     div.className = 'skill-item card';
     div.innerHTML = `
       <div class="row">
+        <div class="col" style="max-width:140px"><label>Type</label>
+          <select class="skill-type"><option value="hard">Savoir-faire</option><option value="soft">Savoir-être</option></select>
+        </div>
         <div class="col"><label>Domaine</label><input class="skill-domain" value="${domain}"/></div>
         <div class="col"><label>Label</label><input class="skill-label" value="${label}"/></div>
         <div style="max-width:160px"><label>Niveau</label>
@@ -168,6 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     container.appendChild(div);
     div.querySelector('.skill-level').value = level;
+    // set default type
+    div.querySelector('.skill-type').value = div.dataset.type || 'hard';
     div.querySelector('.remove-skill').addEventListener('click', () => { div.remove(); updatePreview(); });
   }
 
@@ -183,14 +252,20 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="col"><label>Secteur</label><input class="exp-sector" value="${exp.sector||''}"/></div>
       </div>
       <div class="row" style="margin-top:8px">
-        <div class="col"><label>Début (YYYY-MM)</label><input class="exp-start" value="${exp.period?.start||''}"/></div>
-        <div class="col"><label>Fin (YYYY-MM ou vide)</label><input class="exp-end" value="${exp.period?.end||''}"/></div>
+        <div class="col"><label>Début (YYYY-MM)</label><input class="exp-start date-month" value="${exp.period?.start||''}"/></div>
+        <div class="col"><label>Fin (YYYY-MM ou vide)</label><input class="exp-end date-month" value="${exp.period?.end||''}"/></div>
         <div style="align-self:center"><button type="button" class="remove-experience ghost">Supprimer</button></div>
       </div>
       <div style="margin-top:8px"><label>Description</label><textarea class="exp-description" rows="3">${exp.description||''}</textarea></div>
     `;
     container.appendChild(div);
     div.querySelector('.remove-experience').addEventListener('click', () => { div.remove(); updatePreview(); });
+    // attach date validators
+    div.querySelectorAll('.date-month').forEach(el => {
+      el.addEventListener('blur', () => validateDateInput(el));
+      el.addEventListener('input', () => { if (el.classList.contains('invalid')) validateDateInput(el); });
+      if (el.value) validateDateInput(el);
+    });
   }
 
   function addEducation(ed = {}) {
@@ -259,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ccontainer.innerHTML = '';
         (obj.identity.contacts || []).forEach((c, idx) => {
           const d = document.createElement('div'); d.className = 'contact-row';
-          d.innerHTML = `<select class="contact-type"><option value="email">email</option><option value="phone">phone</option><option value="linkedin">linkedin</option><option value="github">github</option><option value="x">x</option><option value="website">website</option><option value="other">other</option></select><input class="contact-value" placeholder="valeur"/>`;
+          d.innerHTML = `<select class="contact-type"><option value="email">email</option><option value="phone">phone</option><option value="linkedin">linkedin</option><option value="github">github</option><option value="x">x</option><option value="website">website</option><option value="other">other</option></select><input class="contact-value" placeholder="valeur"/><button type="button" class="remove-contact">−</button>`;
           ccontainer.appendChild(d);
           const typeEl = d.querySelector('.contact-type'); if (typeEl) typeEl.value = c.type || 'email';
           const valEl = d.querySelector('.contact-value'); if (valEl) { valEl.value = c.value || ''; valEl.addEventListener('input', updatePreview); }
@@ -268,9 +343,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // skills
     clearList('#skills-list');
-    if (obj.skills && obj.skills.hard) {
-      obj.skills.hard.forEach(domainObj => {
-        (domainObj.items||[]).forEach(item => addSkill(domainObj.domain || '', item.label || '', item.level || 'beginner'));
+    if (obj.skills) {
+      ['hard','soft'].forEach(level => {
+        (obj.skills[level]||[]).forEach(domainObj => {
+          (domainObj.items||[]).forEach(item => {
+            const s = addSkill(domainObj.domain || '', item.label || '', item.level || 'beginner');
+            // if function returned element, set type
+            // addSkill doesn't return element currently; instead adjust last child
+            const last = document.getElementById('skills-list')?.lastElementChild;
+            if (last) {
+              const tsel = last.querySelector('.skill-type'); if (tsel) tsel.value = level;
+            }
+          });
+        });
       });
     }
     // experiences
@@ -307,6 +392,29 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) { console.error('populateFromObject failed', e); }
   }
 
+  // Date validation helpers for fields expecting YYYY or YYYY-MM
+  function isValidMonth(s) {
+    return /^\d{4}(-\d{2})?$/.test(String(s||'').trim());
+  }
+
+  function validateDateInput(el) {
+    if (!el) return true;
+    const ok = !el.value || isValidMonth(el.value);
+    el.classList.toggle('invalid', !ok);
+    return ok;
+  }
+
+  // attach validators after HTMX swaps so newly inserted fragments get handlers
+  if (window.htmx) {
+    document.body.addEventListener('htmx:afterSwap', (evt) => {
+      document.querySelectorAll('.date-month').forEach(el => {
+        el.removeEventListener('blur', () => validateDateInput(el));
+        el.addEventListener('blur', () => validateDateInput(el));
+        el.addEventListener('input', () => { if (el.classList.contains('invalid')) validateDateInput(el); });
+      });
+    });
+  }
+
   validateBtn?.addEventListener('click', async () => {
     try {
       const data = JSON.parse(preview.value);
@@ -318,6 +426,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   downloadBtn?.addEventListener('click', async () => {
     try {
+      if (window._hrx_form_errors && window._hrx_form_errors.length) {
+        alert('Impossible de télécharger : corrigez les erreurs du formulaire avant de continuer.\n' + window._hrx_form_errors.join('\n'));
+        return;
+      }
       const data = JSON.parse(preview.value);
       const res = await fetch('/download', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
       if (!res.ok) { const j = await res.json(); alert('Erreur: ' + (j.errors||[]).join('\n')); return; }

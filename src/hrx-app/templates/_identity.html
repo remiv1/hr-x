@@ -17,16 +17,24 @@
       </div>
       <div class="col">
         <label for="first_name">Prénom</label>
-        <input id="first_name" name="identity[first_name]" value="{{ payload_obj.get('identity', {}).get('first_name', '') if payload_obj else '' }}" />
+        <input id="first_name"
+               name="identity[first_name]"
+               value="{{ payload_obj.get('identity', {}).get('first_name', '') if payload_obj else '' }}" 
+               required
+               autocomplete="given-name"
+        />
       </div>
       <div class="col">
         <label for="last_name">Nom</label>
-        <input id="last_name" name="identity[last_name]" value="{{ payload_obj.get('identity', {}).get('last_name', '') if payload_obj else '' }}" />
+        <input id="last_name"
+               name="identity[last_name]"
+               value="{{ payload_obj.get('identity', {}).get('last_name', '') if payload_obj else '' }}"
+               autocomplete="family-name" />
       </div>
     </div>
 
     <div style="margin-top:8px">
-      <label>Contacts</label>
+      <h4>Contacts</h4>
       <div id="contacts">
         {%- if payload_obj and payload_obj.get('identity', {}).get('contacts') -%}
           {%- for c in payload_obj.get('identity', {}).get('contacts') -%}

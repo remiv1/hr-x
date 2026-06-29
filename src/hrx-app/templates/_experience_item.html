@@ -1,33 +1,33 @@
 <div class="experience-item card">
   <div class="row">
     <div class="col">
-      <label>Poste</label>
-      <input class="exp-position" />
+      <h4>Poste</h4>
+      <input class="exp-position" name="position" />
     </div>
     <div class="col">
-      <label>Organisation</label>
-      <input class="exp-organisation" />
+      <h4>Organisation</h4>
+      <input class="exp-organisation" name="organisation" />
     </div>
     <div class="col">
-      <label>Secteur</label>
-      <input class="exp-sector" />
+      <h4>Secteur</h4>
+      <input class="exp-sector" name="sector" />
     </div>
   </div>
   <div class="row" style="margin-top:8px">
     <div class="col">
-      <label>Début (YYYY-MM)</label>
-      <input class="exp-start" />
+      <h4>Début (YYYY-MM)</h4>
+        <input class="exp-start date-month" pattern="\d{4}(-\d{2})?" title="Format attendu: YYYY or YYYY-MM" name="start" />
     </div>
     <div class="col">
-      <label>Fin (YYYY-MM ou vide)</label>
-      <input class="exp-end" />
+      <h4>Fin (YYYY-MM ou vide)</h4>
+        <input class="exp-end date-month" pattern="\d{4}(-\d{2})?" title="Format attendu: YYYY ou YYYY-MM" name="end" />
     </div>
     <div style="align-self:center">
       <button type="button" class="remove-experience ghost">Supprimer</button>
     </div>
   </div>
   <div style="margin-top:8px">
-    <label>Description</label>
-    <textarea class="exp-description" rows="3"></textarea>
+    <h4>Description</h4>
+    <textarea class="exp-description" rows="3" name="description"></textarea>
   </div>
 </div>

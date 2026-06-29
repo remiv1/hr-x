@@ -1,43 +1,17 @@
 <section id="section-preferences">
   <h3>Préférences</h3>
-  <form>
-    <div class="field">
-      <label for="availability">Disponibilité</label>
-      <input type="date" id="availability" name="preferences[availability]" value="{{ payload_obj.get('preferences', {}).get('availability','') if payload_obj else '' }}" />
-    </div>
-
-    <div class="field">
-      <label>Contrats souhaités</label>
-      <input type="text" name="preferences[contracts]" placeholder="mission, permanent" value="{{ payload_obj.get('preferences', {}).get('contracts')|join(', ') if payload_obj and payload_obj.get('preferences', {}).get('contracts') else '' }}" />
-    </div>
-
-    <div class="field">
-      <label for="remote">Remote</label>
-      <select id="remote" name="preferences[remote]">
+  <div>
+    <div class="row">
+      <div class="col"><h4>Disponibilité</h4><input class="pref-availability" name="availability" value="{{ payload_obj.get('preferences', {}).get('availability','') if payload_obj else '' }}" /></div>
+      <div class="col"><h4>Contrats (séparés par ,)</h4><input class="pref-contracts" name="contracts" value="{{ payload_obj.get('preferences', {}).get('contracts')|join(', ') if payload_obj and payload_obj.get('preferences', {}).get('contracts') else '' }}" /></div>
+      <div class="col"><h4>Remote</h4>
         {% set r = payload_obj.get('preferences', {}).get('remote') if payload_obj else None %}
-        <option value="onsite" {{ 'selected' if r=='onsite' else '' }}>Présentiel</option>
-        <option value="partial" {{ 'selected' if r=='partial' else '' }}>Partiel</option>
-        <option value="remote" {{ 'selected' if r=='remote' else '' }}>Remote</option>
-      </select>
+        <select class="pref-remote" name="remote"><option value="no" {{ 'selected' if r=='no' else '' }}>no</option><option value="partial" {{ 'selected' if r=='partial' else '' }}>partial</option><option value="full" {{ 'selected' if r=='full' else '' }}>full</option></select>
+      </div>
     </div>
-
-    <div class="field">
-      <label for="salary_min">Salaire minimum</label>
-      <input type="number" id="salary_min" name="preferences[salary_min]" value="{{ payload_obj.get('preferences', {}).get('salary_min','') if payload_obj else '' }}" />
+    <div style="margin-top:8px">
+      <h4>Salaire min</h4>
+      <input class="pref-salary" name="salary_min" value="{{ payload_obj.get('preferences', {}).get('salary_min','') if payload_obj else '' }}" />
     </div>
-  </form>
+  </div>
 </section>
-<div>
-  <h2>Préférences</h2>
-  <div class="row">
-    <div class="col"><label>Disponibilité</label><input class="pref-availability"/></div>
-    <div class="col"><label>Contrats (séparés par ,)</label><input class="pref-contracts"/></div>
-    <div class="col"><label>Remote</label>
-      <select class="pref-remote"><option value="no">no</option><option value="partial">partial</option><option value="full">full</option></select>
-    </div>
-  </div>
-  <div style="margin-top:8px">
-    <label>Salaire min</label>
-    <input class="pref-salary" />
-  </div>
-</div>
