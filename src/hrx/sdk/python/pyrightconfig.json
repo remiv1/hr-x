@@ -1,0 +1,19 @@
+{
+  "include": [
+    "hrx",
+    "tests"
+  ],
+  "extraPaths": [
+    "."
+  ],
+  "venvPath": "I:/Projets/hr-x",
+  "venv": "venv",
+  "executionEnvironments": [
+    {
+      "root": ".",
+      "extraPaths": [
+        "."
+      ]
+    }
+  ]
+}
