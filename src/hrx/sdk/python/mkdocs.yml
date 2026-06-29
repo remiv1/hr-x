@@ -1,0 +1,17 @@
+site_name: HRX SDK (Python)
+site_description: Documentation pour le SDK Python `hrx`
+# Répertoire contenant les fichiers markdown (relatif à ce fichier)
+docs_dir: ../../../../doc
+# Répertoire de sortie de la construction
+site_dir: site
+
+# Thème simple et inclus par défaut
+theme:
+  name: readthedocs
+
+# Options additionnelles
+repo_url: ""
+
+# Si nécessaire, ajoutez ici une configuration 'nav' personnalisée
+# nav:
+#   - Accueil: index.md

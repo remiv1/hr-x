@@ -8,7 +8,7 @@ Installation (locally):
 pip install build
 cd src/hrx/sdk/python
 python -m build
-pip install dist/hrxlib-0.2.0-py3-none-any.whl
+pip install dist/hrxlib-0.1.0-py3-none-any.whl
 ```
 
 Usage:
