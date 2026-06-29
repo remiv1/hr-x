@@ -3,14 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>HRX Mini-site</title>
+    <title>HR-X — CV électronique</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
     <link rel="stylesheet" href="/static/css/main.css">
     <script src="/static/hrx.js" defer></script>
   </head>
   <body>
-    <header>
-      <h1>HRX — Créez votre CV électronique</h1>
+    <header class="container">
+      <div class="header-logo">HR-X</div>
+      <div>
+        <h1>HR-X</h1>
+        <p class="subtitle">Créez et exportez votre CV au format HR-X</p>
+      </div>
     </header>
     <main>
       {% block content %}{% endblock %}

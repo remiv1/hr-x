@@ -1,8 +1,19 @@
-<div class="award-item card">
-  <div class="row">
-    <div class="col"><h4>Titre</h4><input class="award-title" name="title" /></div>
-    <div class="col"><h4>Émetteur</h4><input class="award-issuer" name="issuer" /></div>
-    <div style="max-width:120px"><h4>Année</h4><input class="award-year" name="year" /></div>
-    <div style="align-self:center"><button type="button" class="remove-award ghost">Supprimer</button></div>
+<div class="collapsible-item award-item card">
+  <div class="item-header" tabindex="0" role="button" aria-expanded="true">
+    <div class="item-summary">
+      <span class="item-title">Nouvelle distinction</span>
+      <span class="item-meta muted"></span>
+    </div>
+    <div class="item-controls">
+      <button type="button" class="icon-button remove-award" aria-label="Supprimer" title="Supprimer">✕</button>
+      <i class="chevron" aria-hidden="true">›</i>
+    </div>
+  </div>
+  <div class="item-body">
+    <div class="row">
+      <div class="col"><label>Titre</label><input class="award-title" name="title" /></div>
+      <div class="col"><label>Émetteur</label><input class="award-issuer" name="issuer" /></div>
+      <div style="max-width:120px"><label>Année</label><input class="award-year" name="year" /></div>
+    </div>
   </div>
 </div>

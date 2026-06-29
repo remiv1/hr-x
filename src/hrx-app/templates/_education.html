@@ -1,27 +1,7 @@
 <div>
   <h2>Éducation</h2>
   <div id="education-list">
-    <div class="education-item card">
-      <div class="row">
-        <div class="col">
-          <h4>Titre</h4>
-          <input class="edu-title" name="title" />
-        </div>
-        <div class="col">
-          <h4>Institution</h4>
-          <input class="edu-institution" name="institution" />
-        </div>
-        <div style="max-width:140px">
-          <h4>Année</h4>
-          <input class="edu-year" name="year" />
-        </div>
-      </div>
-      <div class="actions" style="margin-top:8px">
-        <button type="button" class="remove-education ghost">Supprimer</button>
-      </div>
-    </div>
+    {% include '_education_item.html' %}
   </div>
-  <div class="actions" style="margin-top:8px">
-    <button class="ghost" hx-get="/section/new/education" hx-target="#education-list" hx-swap="afterend">Ajouter éducation</button>
-  </div>
+  <button class="add-btn" hx-get="/section/new/education" hx-target="#education-list" hx-swap="beforeend">+ Ajouter une formation</button>
 </div>

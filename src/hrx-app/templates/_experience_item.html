@@ -1,33 +1,24 @@
-<div class="experience-item card">
-  <div class="row">
-    <div class="col">
-      <h4>Poste</h4>
-      <input class="exp-position" name="position" />
+<div class="collapsible-item experience-item card">
+  <div class="item-header" tabindex="0" role="button" aria-expanded="true">
+    <div class="item-summary">
+      <span class="item-title">Nouvelle expérience</span>
+      <span class="item-meta muted"></span>
     </div>
-    <div class="col">
-      <h4>Organisation</h4>
-      <input class="exp-organisation" name="organisation" />
-    </div>
-    <div class="col">
-      <h4>Secteur</h4>
-      <input class="exp-sector" name="sector" />
+    <div class="item-controls">
+      <button type="button" class="icon-button remove-experience" aria-label="Supprimer" title="Supprimer">✕</button>
+      <i class="chevron" aria-hidden="true">›</i>
     </div>
   </div>
-  <div class="row" style="margin-top:8px">
-    <div class="col">
-      <h4>Début (YYYY-MM)</h4>
-        <input class="exp-start date-month" pattern="\d{4}(-\d{2})?" title="Format attendu: YYYY or YYYY-MM" name="start" />
+  <div class="item-body">
+    <div class="row">
+      <div class="col"><label>Poste</label><input class="exp-position" name="position" /></div>
+      <div class="col"><label>Organisation</label><input class="exp-organisation" name="organisation" /></div>
+      <div class="col"><label>Secteur</label><input class="exp-sector" name="sector" /></div>
     </div>
-    <div class="col">
-      <h4>Fin (YYYY-MM ou vide)</h4>
-        <input class="exp-end date-month" pattern="\d{4}(-\d{2})?" title="Format attendu: YYYY ou YYYY-MM" name="end" />
+    <div class="row" style="margin-top:10px">
+      <div class="col"><label>Début (YYYY-MM)</label><input class="exp-start date-month" pattern="\d{4}(-\d{2})?" title="Format : YYYY ou YYYY-MM" name="start" /></div>
+      <div class="col"><label>Fin (YYYY-MM ou vide)</label><input class="exp-end date-month" pattern="\d{4}(-\d{2})?" title="Format : YYYY ou YYYY-MM" name="end" /></div>
     </div>
-    <div style="align-self:center">
-      <button type="button" class="remove-experience ghost">Supprimer</button>
-    </div>
-  </div>
-  <div style="margin-top:8px">
-    <h4>Description</h4>
-    <textarea class="exp-description" rows="3" name="description"></textarea>
+    <div style="margin-top:10px"><label>Description</label><textarea class="exp-description" rows="3" name="description"></textarea></div>
   </div>
 </div>

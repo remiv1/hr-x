@@ -3,22 +3,22 @@
 {% block content %}
 
 <div class="container">
-  <div class="card">
-    <div class="row">
-      <div class="col">
-        <p class="lead muted">Remplissez les onglets et téléchargez votre fichier HRX.</p>
-      </div>
-      <div class="col" style="max-width:260px">
-        <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
-          <label for="file-input">Charger un fichier .hrx</label>
-            <input type="file" id="file-input" name="file" accept=".hrx,application/json" />
-          <div class="actions"><button class="ghost" type="submit">Charger</button></div>
-        </form>
-      </div>
+
+  <!-- Barre upload -->
+  <div class="card upload-bar">
+    <p class="lead">Remplissez les onglets et téléchargez votre fichier HRX.</p>
+    <div class="upload-zone">
+      <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data" style="display:flex;align-items:center;gap:8px;">
+        <span class="upload-filename" id="upload-filename">Aucun fichier</span>
+        <input type="file" id="file-input" name="file" accept=".hrx,application/json" style="display:none" />
+        <button type="button" class="ghost" id="browse-btn" style="font-size:13px;padding:7px 12px;">Parcourir</button>
+        <button class="ghost" type="submit" style="font-size:13px;padding:7px 12px;">Charger</button>
+      </form>
     </div>
   </div>
 
-  <div class="tabs card">
+  <!-- Onglets -->
+  <div class="tabs">
     <button class="active" data-target="#tab-identity">Identité</button>
     <button data-target="#tab-skills">Compétences</button>
     <button data-target="#tab-experiences">Expériences</button>
@@ -53,47 +53,63 @@
     </div>
   </div>
 
-  <script>
-    document.addEventListener('click', function (e) {
-      const btn = e.target.closest('.tabs.card button');
-      if (!btn) return;
-      e.preventDefault();
-      document.querySelectorAll('.tabs.card button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const target = btn.getAttribute('data-target');
-      if (!target) return;
-      document.querySelectorAll('.tab-pane').forEach(p => p.hidden = true);
-      const pane = document.querySelector(target);
-      if (pane) pane.hidden = false;
-    });
-  </script>
+</div>
 
-  <div class="card preview-card">
-    <div class="card-heading">
-      <div>
-        <h2>Aperçu JSON</h2>
-        <p class="muted">Consultez, validez et exportez votre fichier HRX en toute simplicité.</p>
-      </div>
-      <button id="open-json-preview" class="primary">Ouvrir l’aperçu</button>
+<!-- Barre d’actions sticky -->
+<div class="sticky-bar">
+  <div class="sticky-bar-inner">
+    <div class="sticky-bar-left">
+      <span id="sticky-status">Brouillon non sauvegardé</span>
     </div>
-    <div class="actions">
-      <button id="save-local" class="ghost">Sauvegarder local</button>
+    <div class="sticky-bar-actions">
+      <button id="save-local" class="ghost">Sauvegarder</button>
       <button id="load-local" class="ghost">Charger local</button>
       <button id="validate" class="ghost">Valider</button>
+      <button id="open-json-preview" class="ghost">Aperçu JSON</button>
       <button id="download" class="primary">Télécharger .hrx</button>
     </div>
   </div>
 </div>
 
+<!-- Conteneur de toasts -->
+<div id="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+<script>
+  // Navigation par onglets
+  document.addEventListener('click', function (e) {
+    const btn = e.target.closest('.tabs button');
+    if (!btn) return;
+    e.preventDefault();
+    document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const target = btn.getAttribute('data-target');
+    if (!target) return;
+    document.querySelectorAll('.tab-pane').forEach(p => p.hidden = true);
+    const pane = document.querySelector(target);
+    if (pane) pane.hidden = false;
+  });
+
+  // Bouton parcourir + affichage du nom de fichier
+  document.addEventListener('DOMContentLoaded', () => {
+    const browseBtn  = document.getElementById('browse-btn');
+    const fileInp    = document.getElementById('file-input');
+    const filenameEl = document.getElementById('upload-filename');
+    browseBtn?.addEventListener('click', () => fileInp?.click());
+    fileInp?.addEventListener('change', () => {
+      if (fileInp.files[0]) filenameEl.textContent = fileInp.files[0].name;
+    });
+  });
+</script>
+
 <div id="json-preview-modal" class="modal" hidden>
   <div class="modal-backdrop" data-close-modal></div>
-  <dialog class="modal-dialog" aria-modal="true" aria-labelledby="json-preview-title">
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="json-preview-title">
     <div class="modal-header">
       <div>
         <h3 id="json-preview-title">Aperçu JSON</h3>
         <p class="muted">Le contenu est mis à jour à chaque modification.</p>
       </div>
-      <button type="button" class="icon-button" data-close-modal aria-label="Fermer">×</button>
+      <button type="button" class="icon-button" data-close-modal aria-label="Fermer">✕</button>
     </div>
     <textarea id="json-preview" rows="22" spellcheck="false"></textarea>
     <div class="modal-footer">
@@ -114,10 +130,8 @@
       modal.hidden = false;
       modal.style.display = 'grid';
       document.body.classList.add('modal-open');
-      const preview = document.getElementById('json-preview');
-      if (preview) preview.focus();
+      document.getElementById('json-preview')?.focus();
     };
-
     const closeModal = () => {
       if (!modal) return;
       modal.hidden = true;
@@ -126,37 +140,25 @@
     };
 
     openPreviewBtn?.addEventListener('click', openModal);
-    document.querySelectorAll('[data-close-modal]').forEach((el) => {
-      el.addEventListener('click', closeModal);
-    });
-    modal?.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !modal?.hidden) closeModal();
-    });
+    document.querySelectorAll('[data-close-modal]').forEach(el => el.addEventListener('click', closeModal));
+    modal?.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal?.hidden) closeModal(); });
+
     copyBtn?.addEventListener('click', async () => {
       const preview = document.getElementById('json-preview');
       if (!preview) return;
       await navigator.clipboard.writeText(preview.value);
-      const original = copyBtn.textContent;
+      const orig = copyBtn.textContent;
       copyBtn.textContent = 'Copié !';
-      setTimeout(() => {
-        copyBtn.textContent = original;
-      }, 1400);
+      setTimeout(() => { copyBtn.textContent = orig; }, 1400);
     });
   });
 </script>
 
 {% if payload %}
-  <div class="card">
-    <h3>Contenu chargé</h3>
-      <pre id="server-payload-visible">{{ payload }}</pre>
-      <script>
-        // expose parsed payload for client JS to populate forms
-        window.SERVER_PAYLOAD = {{ payload_obj|tojson|safe }};
-      </script>
-  </div>
+  <script>
+    window.SERVER_PAYLOAD = {{ payload_obj|tojson|safe }};
+  </script>
 {% endif %}
 
 {% if error %}

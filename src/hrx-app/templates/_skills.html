@@ -39,11 +39,9 @@
     {%- endif -%}
   </div>
 
-  <div class="actions">
-    <button type="button"
-            hx-get="{{ url_for('new_item', item='skill') }}"
-            hx-target="#skills-list"
-            hx-swap="beforeend"
-            class="ghost">Ajouter une compétence</button>
-  </div>
+  <button type="button"
+          hx-get="{{ url_for('new_item', item='skill') }}"
+          hx-target="#skills-list"
+          hx-swap="beforeend"
+          class="add-btn">+ Ajouter une compétence</button>
 </section>

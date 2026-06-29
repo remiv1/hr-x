@@ -1,15 +1,26 @@
-<div class="education-item card">
-  <div class="row">
-    <div class="col"><h4>Titre</h4><input class="edu-title" name="title" /></div>
-    <div class="col"><h4>Institution</h4><input class="edu-institution" name="institution" /></div>
-    <div style="max-width:140px"><h4>Année</h4><input class="edu-year" name="year" /></div>
-    <div style="align-self:center"><button type="button" class="remove-education ghost">Supprimer</button></div>
+<div class="collapsible-item education-item card">
+  <div class="item-header" tabindex="0" role="button" aria-expanded="true">
+    <div class="item-summary">
+      <span class="item-title">Nouvelle formation</span>
+      <span class="item-meta muted"></span>
+    </div>
+    <div class="item-controls">
+      <button type="button" class="icon-button remove-education" aria-label="Supprimer" title="Supprimer">✕</button>
+      <i class="chevron" aria-hidden="true">›</i>
+    </div>
   </div>
-  <div style="margin-top:8px">
-    <label>Certification</label>
-    <select class="edu-certification" name="certification">
-      <option value="">non</option>
-      <option value="yes">oui</option>
-    </select>
+  <div class="item-body">
+    <div class="row">
+      <div class="col"><label>Titre</label><input class="edu-title" name="title" /></div>
+      <div class="col"><label>Institution</label><input class="edu-institution" name="institution" /></div>
+      <div style="max-width:140px"><label>Année</label><input class="edu-year" name="year" /></div>
+    </div>
+    <div style="margin-top:10px">
+      <label>Certification</label>
+      <select class="edu-certification" name="certification">
+        <option value="">non</option>
+        <option value="yes">oui</option>
+      </select>
+    </div>
   </div>
 </div>
