@@ -8,7 +8,7 @@
   <div class="card upload-bar">
     <p class="lead">Remplissez les onglets et téléchargez votre fichier HRX.</p>
     <div class="upload-zone">
-      <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data" style="display:flex;align-items:center;gap:8px;">
+      <form id="upload-form" action="{{ url_for('demo_hrx.upload_hrx') }}" method="post" enctype="multipart/form-data" style="display:flex;align-items:center;gap:8px;">
         <span class="upload-filename" id="upload-filename">Aucun fichier</span>
         <input type="file" id="file-input" name="file" accept=".hrx,application/json" style="display:none" />
         <button type="button" class="ghost" id="browse-btn" style="font-size:13px;padding:7px 12px;">Parcourir</button>
@@ -29,27 +29,31 @@
 
   <div id="tab-panes">
     <div id="tab-identity" class="card tab-pane">
-      <div hx-get="/section/identity" hx-trigger="load" hx-swap="innerHTML"></div>
+      <div hx-get="{{ url_for('demo_hrx.section', name='identity') }}" hx-trigger="load" hx-swap="innerHTML"></div>
     </div>
 
     <div id="tab-skills" class="card tab-pane" hidden>
-      <div hx-get="/section/skills" hx-trigger="load" hx-swap="innerHTML"></div>
+      <div hx-get="{{ url_for('demo_hrx.section', name='skills') }}" hx-trigger="load" hx-swap="innerHTML"></div>
     </div>
 
     <div id="tab-experiences" class="card tab-pane" hidden>
-      <div hx-get="/section/experiences" hx-trigger="load" hx-swap="innerHTML"></div>
+      <div hx-get="{{ url_for('demo_hrx.section', name='experiences') }}" hx-trigger="load" hx-swap="innerHTML"></div>
     </div>
 
     <div id="tab-education" class="card tab-pane" hidden>
-      <div hx-get="/section/education" hx-trigger="load" hx-swap="innerHTML"></div>
+      <div
+        hx-get="{{ url_for('demo_hrx.section_education') }}"
+        hx-trigger="load"
+        hx-swap="innerHTML"
+      ></div>
     </div>
 
     <div id="tab-credentials" class="card tab-pane" hidden>
-      <div hx-get="/section/credentials" hx-trigger="load" hx-swap="innerHTML"></div>
+      <div hx-get="{{ url_for('demo_hrx.section_credentials') }}" hx-trigger="load" hx-swap="innerHTML"></div>
     </div>
 
     <div id="tab-preferences" class="card tab-pane" hidden>
-      <div hx-get="/section/preferences" hx-trigger="load" hx-swap="innerHTML"></div>
+      <div hx-get="{{ url_for('demo_hrx.section_preferences') }}" hx-trigger="load" hx-swap="innerHTML"></div>
     </div>
   </div>
 

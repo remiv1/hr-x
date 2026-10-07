@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HR-X — La brisure du CV</title>
+  <meta name="description" content="Comment la donnée d'un parcours professionnel est aplatie, perdue puis reconstruite à tort — et comment HR-X la restaure.">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon-hrx.ico') }}" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/story.css') }}">
+</head>
+<body class="story">
+
+  <div class="story-progress" aria-hidden="true"><span data-progress-bar></span></div>
+
+  <a class="story-fab" href="{{ url_for('demo_hrx.index') }}">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <path d="M14 2v6h6"/><path d="M9 15h6"/><path d="M9 11h3"/>
+    </svg>
+    <span class="story-fab__label">Créer mon HR-X</span>
+  </a>
+
+  <main>
+    <div class="story-scenes">
+
+    <!-- Introduction -->
+    <section class="scene scene--intro" id="scene-intro">
+      <div class="intro__content">
+        <h1 class="intro__title">
+          HR-X<br>
+          <span class="intro__highlight">la donnée,</span><br>
+          <span class="intro__highlight">complète,</span><br>
+          <span class="intro__highlight">lisible,</span><br>
+          <span class="intro__highlight">filtrable</span><br>
+          <span class="intro__highlight">...par celui qui en a besoin.</span><br>
+        </h1>
+        <p class="intro__prompt">Découvrez ce que HR-X peut changer</p>
+        <div class="intro__chevrons" aria-hidden="true">
+          <svg data-intro-chevron viewBox="0 0 28 16"><path d="m3 3 11 10L25 3"/></svg>
+          <svg data-intro-chevron viewBox="0 0 28 16"><path d="m3 3 11 10L25 3"/></svg>
+          <svg data-intro-chevron viewBox="0 0 28 16"><path d="m3 3 11 10L25 3"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scène 1 -->
+    <section class="scene" id="scene-1">
+      <div class="scene__text">
+        <span class="scene__num">Scène 1</span>
+        <h2 class="scene__title">Le candidat devant France Travail</h2>
+        <p class="scene__desc">Une personne, un parcours, une porte. Tout commence par une démarche administrative banale.</p>
+      </div>
+      <div class="scene__stage">
+        <svg viewBox="0 0 520 340" role="img" aria-label="Un candidat devant un bâtiment administratif">
+          <rect data-anim="building" x="250" y="70" width="220" height="200" rx="8" class="st-fill-panel"/>
+          <rect data-anim="window" x="272" y="98" width="38" height="34" rx="4" class="st-muted"/>
+          <rect data-anim="window" x="326" y="98" width="38" height="34" rx="4" class="st-muted"/>
+          <rect data-anim="window" x="380" y="98" width="38" height="34" rx="4" class="st-muted"/>
+          <rect data-anim="window" x="272" y="156" width="38" height="34" rx="4" class="st-muted"/>
+          <rect data-anim="window" x="326" y="156" width="38" height="34" rx="4" class="st-muted"/>
+          <rect data-anim="window" x="380" y="156" width="38" height="34" rx="4" class="st-muted"/>
+          <rect data-anim="door" x="330" y="212" width="58" height="58" rx="4" class="st-accent"/>
+          <text x="360" y="58" text-anchor="middle" class="st-label">FRANCE TRAVAIL</text>
+
+          <g data-anim="candidate">
+            <circle cx="110" cy="150" r="26" class="st-stroke"/>
+            <path d="M110 176v66" class="st-stroke"/>
+            <path d="M110 196l-30 24M110 196l30 24" class="st-stroke"/>
+            <path d="M110 242l-24 30M110 242l24 30" class="st-stroke"/>
+            <path d="M98 146h6M116 146h6" class="st-stroke"/>
+            <path d="M98 162h24" class="st-muted"/>
+          </g>
+          <path d="M40 272h440" class="st-muted"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Scène 2 -->
+    <section class="scene" id="scene-2">
+      <div class="scene__text">
+        <span class="scene__num">Scène 2</span>
+        <h2 class="scene__title">Le candidat pense à son parcours</h2>
+        <p class="scene__desc">Compétences, projets, expériences, preuves : dans sa tête, la donnée est riche, reliée, contextualisée.</p>
+      </div>
+      <div class="scene__stage">
+        <svg viewBox="0 0 520 340" role="img" aria-label="Bulle de pensée contenant compétences, projets, expériences et preuves">
+          <g data-anim="candidate">
+            <circle cx="90" cy="230" r="24" class="st-stroke"/>
+            <path d="M90 254v56" class="st-stroke"/>
+            <path d="M90 272l-26 20M90 272l26 20" class="st-stroke"/>
+          </g>
+          <circle data-anim="bubble-dot" cx="132" cy="196" r="6" class="st-muted"/>
+          <circle data-anim="bubble-dot" cx="150" cy="172" r="9" class="st-muted"/>
+          <path data-anim="bubble" d="M175 150c0-46 40-78 92-78s96 30 96 76 -44 76-96 76c-22 0-40-5-55-14-14 8-30 11-30 11s7-14 6-26c-8-13-13-28-13-45z" class="st-fill-panel"/>
+
+          <g data-anim="thought">
+            <rect x="196" y="96" width="76" height="42" rx="10" class="st-accent"/>
+            <text x="234" y="122" text-anchor="middle" class="st-label st-label--accent">Compétences</text>
+          </g>
+          <g data-anim="thought">
+            <rect x="286" y="96" width="66" height="42" rx="10" class="st-accent2"/>
+            <text x="319" y="122" text-anchor="middle" class="st-label">Projets</text>
+          </g>
+          <g data-anim="thought">
+            <rect x="196" y="152" width="84" height="42" rx="10" class="st-accent2"/>
+            <text x="238" y="178" text-anchor="middle" class="st-label">Expériences</text>
+          </g>
+          <g data-anim="thought">
+            <rect x="294" y="152" width="58" height="42" rx="10" class="st-accent"/>
+            <text x="323" y="178" text-anchor="middle" class="st-label st-label--accent">Preuves</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Scène 2 bis -->
+    <section class="scene" id="scene-2bis">
+      <div class="scene__text">
+        <span class="scene__num">Scène 2 bis</span>
+        <h2 class="scene__title">La fragmentation multi‑plateformes</h2>
+        <p class="scene__desc">Un même parcours, saisi quatre fois, dans quatre formats. Quatre vérités partielles qui divergent dès le premier jour.</p>
+      </div>
+      <div class="scene__stage">
+        <svg viewBox="0 0 520 340" role="img" aria-label="Le candidat dupliqué sur quatre plateformes, données fragmentées">
+          <g data-anim="split" data-dx="-165">
+            <circle cx="260" cy="120" r="20" class="st-muted"/>
+            <path d="M260 140v44" class="st-muted"/>
+            <rect x="220" y="200" width="80" height="26" rx="6" class="st-fill-panel"/>
+            <text x="260" y="217" text-anchor="middle" class="st-label">Plateforme A</text>
+          </g>
+          <g data-anim="split" data-dx="-55">
+            <circle cx="260" cy="120" r="20" class="st-muted"/>
+            <path d="M260 140v44" class="st-muted"/>
+            <rect x="220" y="200" width="80" height="26" rx="6" class="st-fill-panel"/>
+            <text x="260" y="217" text-anchor="middle" class="st-label">Plateforme B</text>
+          </g>
+          <g data-anim="split" data-dx="55">
+            <circle cx="260" cy="120" r="20" class="st-muted"/>
+            <path d="M260 140v44" class="st-muted"/>
+            <rect x="220" y="200" width="80" height="26" rx="6" class="st-fill-panel"/>
+            <text x="260" y="217" text-anchor="middle" class="st-label">Entreprise X</text>
+          </g>
+          <g data-anim="split" data-dx="165">
+            <circle cx="260" cy="120" r="20" class="st-muted"/>
+            <path d="M260 140v44" class="st-muted"/>
+            <rect x="220" y="200" width="80" height="26" rx="6" class="st-fill-panel"/>
+            <text x="260" y="217" text-anchor="middle" class="st-label">CV PDF</text>
+          </g>
+
+          <g data-anim="shard">
+            <rect x="96" y="256" width="42" height="10" rx="3" class="st-fill-muted"/>
+            <rect x="168" y="272" width="30" height="10" rx="3" class="st-fill-muted"/>
+            <rect x="240" y="258" width="52" height="10" rx="3" class="st-fill-muted"/>
+            <rect x="322" y="276" width="26" height="10" rx="3" class="st-fill-muted"/>
+            <rect x="376" y="260" width="44" height="10" rx="3" class="st-fill-muted"/>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Scène 3 -->
+    <section class="scene" id="scene-3">
+      <div class="scene__text">
+        <span class="scene__num">Scène 3</span>
+        <h2 class="scene__title">Une offre arrive</h2>
+        <p class="scene__desc">Une annonce tombe. Elle va décider de ce qui, dans le parcours, mérite d'exister.</p>
+      </div>
+      <div class="scene__stage">
+        <svg viewBox="0 0 520 340" role="img" aria-label="Une carte offre d'emploi descend vers le candidat">
+          <g data-anim="offer">
+            <rect x="176" y="40" width="168" height="112" rx="14" class="st-fill-panel"/>
+            <text x="260" y="74" text-anchor="middle" class="st-label st-label--accent">OFFRE D'EMPLOI</text>
+            <path d="M200 96h120M200 112h96M200 128h72" class="st-muted"/>
+          </g>
+          <g data-anim="candidate">
+            <circle cx="260" cy="216" r="24" class="st-stroke"/>
+            <path d="M260 240v56" class="st-stroke"/>
+            <path d="M260 256l-28 18M260 256l28 18" class="st-stroke"/>
+            <path d="M250 210h6M264 210h6" class="st-stroke"/>
+          </g>
+          <path d="M60 300h400" class="st-muted"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Scène 4 -->
+    <section class="scene" id="scene-4">
+      <div class="scene__text">
+        <span class="scene__num">Scène 4</span>
+        <h2 class="scene__title">Les mots‑clés filtrent le parcours</h2>
+        <p class="scene__desc">« Python », « 5 ans », « Bac+5 », « Chef de projet ». Ce qui ne correspond pas au filtre disparaît, même si c'est décisif.</p>
+      </div>
+      <div class="scene__stage">
+        <svg viewBox="0 0 520 340" role="img" aria-label="Des mots-clés filtrent les données du candidat">
+          <g data-anim="keyword">
+            <rect x="40" y="40" width="86" height="32" rx="16" class="st-accent2"/>
+            <text x="83" y="61" text-anchor="middle" class="st-label">Python</text>
+          </g>
+          <g data-anim="keyword">
+            <rect x="146" y="40" width="76" height="32" rx="16" class="st-accent2"/>
+            <text x="184" y="61" text-anchor="middle" class="st-label">5 ans</text>
+          </g>
+          <g data-anim="keyword">
+            <rect x="242" y="40" width="80" height="32" rx="16" class="st-accent2"/>
+            <text x="282" y="61" text-anchor="middle" class="st-label">Bac+5</text>
+          </g>
+          <g data-anim="keyword">
+            <rect x="342" y="40" width="138" height="32" rx="16" class="st-accent2"/>
+            <text x="411" y="61" text-anchor="middle" class="st-label">Chef de projet</text>
+          </g>
+
+          <path d="M40 108h440" class="st-danger" stroke-dasharray="8 8"/>
+          <text x="260" y="98" text-anchor="middle" class="st-label st-label--danger">FILTRE</text>
+
+          <g data-anim="kept">
+            <rect x="96" y="150" width="120" height="26" rx="6" class="st-fill-accent" opacity="0.85"/>
+            <rect x="96" y="188" width="96" height="26" rx="6" class="st-fill-accent" opacity="0.85"/>
+          </g>
+          <g data-anim="dropped">
+            <rect x="248" y="150" width="150" height="26" rx="6" class="st-fill-muted"/>
+            <rect x="248" y="188" width="118" height="26" rx="6" class="st-fill-muted"/>
+            <rect x="248" y="226" width="140" height="26" rx="6" class="st-fill-muted"/>
+            <rect x="96" y="226" width="104" height="26" rx="6" class="st-fill-muted"/>
+          </g>
+          <text x="260" y="298" text-anchor="middle" class="st-label st-label--danger">Données écartées : non indexables</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Scène 5 -->
+    <section class="scene" id="scene-5">
+      <div class="scene__text">
+        <span class="scene__num">Scène 5</span>
+        <h2 class="scene__title">Aplatissement par une presse</h2>
+        <p class="scene__desc">Le parcours passe sous la presse du format. Il en ressort une feuille grise : plate et non structurée.</p>
+      </div>
+      <div class="scene__stage">
+        <svg viewBox="0 0 520 340" role="img" aria-label="Une presse écrase les données riches en un CV plat">
+          <path d="M60 40h400" class="st-muted"/>
+          <path d="M150 40v40M370 40v40" class="st-muted"/>
+          <g data-anim="press">
+            <rect x="130" y="80" width="260" height="46" rx="8" class="st-fill-panel"/>
+            <text x="260" y="108" text-anchor="middle" class="st-label">PRESSE</text>
+          </g>
+
+          <g data-anim="rich">
+            <rect x="168" y="156" width="80" height="30" rx="8" class="st-accent"/>
+            <rect x="262" y="156" width="92" height="30" rx="8" class="st-accent2"/>
+            <rect x="168" y="196" width="104" height="30" rx="8" class="st-accent2"/>
+            <rect x="286" y="196" width="68" height="30" rx="8" class="st-accent"/>
+          </g>
+
+          <g data-anim="flat">
+            <rect x="176" y="252" width="168" height="52" rx="6" class="st-fill-muted"/>
+            <text x="260" y="284" text-anchor="middle" class="st-label" fill="#0a0e17">Plat &amp; non‑structuré</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Scène 6 -->
+    <section class="scene" id="scene-6">
+      <div class="scene__text">
+        <span class="scene__num">Scène 6</span>
+        <h2 class="scene__title">Transmission du CV</h2>
+        <p class="scene__desc">La feuille grise part dans le tuyau. À l'autre bout, une entreprise attend — sans savoir ce qui a été perdu.</p>
+      </div>
+      <div class="scene__stage">
+        <svg viewBox="0 0 520 340" role="img" aria-label="Le CV transite dans un tuyau vers l'entreprise">
+          <path d="M40 132h380" class="st-muted"/>
+          <path d="M40 208h380" class="st-muted"/>
+          <path d="M40 132v76" class="st-muted"/>
+
+          <rect data-anim="cv" x="58" y="150" width="52" height="40" rx="5" class="st-fill-muted"/>
+
+          <rect x="396" y="112" width="94" height="116" rx="8" class="st-fill-panel"/>
+          <rect x="412" y="134" width="24" height="22" rx="3" class="st-muted"/>
+          <rect x="450" y="134" width="24" height="22" rx="3" class="st-muted"/>
+          <rect x="412" y="172" width="24" height="22" rx="3" class="st-muted"/>
+          <rect x="450" y="172" width="24" height="22" rx="3" class="st-muted"/>
+          <text x="443" y="252" text-anchor="middle" class="st-label">Entreprise</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Scène 7 -->
+    <section class="scene" id="scene-7">
+      <div class="scene__text">
+        <span class="scene__num">Scène 7</span>
+        <h2 class="scene__title">L'ATS regonfle la donnée</h2>
+        <p class="scene__desc">L'ATS tente de reconstruire ce qui a été aplati. Il ne restitue pas : il devine, avec un score de confiance.</p>
+      </div>
+      <div class="scene__stage">
+        <svg viewBox="0 0 520 340" role="img" aria-label="Un robot ATS regonfle la donnée de manière déformée">
+          <g data-anim="robot">
+            <rect x="188" y="86" width="144" height="112" rx="16" class="st-fill-panel"/>
+            <circle cx="228" cy="132" r="12" class="st-accent2"/>
+            <circle cx="292" cy="132" r="12" class="st-accent2"/>
+            <path d="M224 168h72" class="st-muted"/>
+            <path d="M260 66v20" class="st-stroke"/>
+            <circle cx="260" cy="60" r="7" class="st-fill-danger"/>
+            <text x="260" y="222" text-anchor="middle" class="st-label st-label--accent">ATS</text>
+          </g>
+
+          <g data-anim="inflated">
+            <rect x="64" y="250" width="110" height="34" rx="8" class="st-danger" transform="rotate(-7 119 267)"/>
+            <text x="119" y="272" text-anchor="middle" class="st-label st-label--danger" transform="rotate(-7 119 267)">Confidence 0.62</text>
+          </g>
+          <g data-anim="inflated">
+            <rect x="212" y="256" width="96" height="34" rx="8" class="st-danger" transform="rotate(5 260 273)"/>
+            <text x="260" y="278" text-anchor="middle" class="st-label st-label--danger" transform="rotate(5 260 273)">Guess</text>
+          </g>
+          <g data-anim="inflated">
+            <rect x="342" y="248" width="118" height="34" rx="8" class="st-danger" transform="rotate(-4 401 265)"/>
+            <text x="401" y="270" text-anchor="middle" class="st-label st-label--danger" transform="rotate(-4 401 265)">Confidence 0.41</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Scène 7 bis -->
+    <section class="scene" id="scene-7bis">
+      <div class="scene__text">
+        <span class="scene__num">Scène 7 bis</span>
+        <h2 class="scene__title">Les systèmes se contredisent</h2>
+        <p class="scene__desc">Parseur, ATS, IA : trois lectures du même document, trois parcours différents. Personne ne tranche.</p>
+      </div>
+      <div class="scene__stage">
+        <svg viewBox="0 0 520 340" role="img" aria-label="Trois systèmes produisent trois versions contradictoires du parcours">
+          <g data-anim="system">
+            <rect x="30" y="70" width="140" height="150" rx="14" class="st-fill-panel"/>
+            <text x="100" y="98" text-anchor="middle" class="st-label st-label--accent">Parseur</text>
+            <rect x="52" y="118" width="96" height="14" rx="4" class="st-fill-muted"/>
+            <rect x="52" y="142" width="72" height="14" rx="4" class="st-fill-muted"/>
+            <rect x="52" y="166" width="88" height="14" rx="4" class="st-fill-muted"/>
+          </g>
+          <g data-anim="system">
+            <rect x="190" y="70" width="140" height="150" rx="14" class="st-fill-panel"/>
+            <text x="260" y="98" text-anchor="middle" class="st-label st-label--accent">ATS</text>
+            <rect x="212" y="118" width="62" height="14" rx="4" class="st-fill-muted"/>
+            <rect x="212" y="142" width="98" height="14" rx="4" class="st-fill-muted"/>
+            <rect x="212" y="166" width="44" height="14" rx="4" class="st-fill-muted"/>
+          </g>
+          <g data-anim="system">
+            <rect x="350" y="70" width="140" height="150" rx="14" class="st-fill-panel"/>
+            <text x="420" y="98" text-anchor="middle" class="st-label st-label--accent">IA</text>
+            <rect x="372" y="118" width="84" height="14" rx="4" class="st-fill-muted"/>
+            <rect x="372" y="142" width="34" height="14" rx="4" class="st-fill-muted"/>
+            <rect x="372" y="166" width="102" height="14" rx="4" class="st-fill-muted"/>
+          </g>
+
+          <g data-anim="alert">
+            <rect x="164" y="256" width="192" height="42" rx="12" class="st-danger"/>
+            <text x="260" y="282" text-anchor="middle" class="st-label st-label--danger">INCOHÉRENCE</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Scène 8 -->
+    <section class="scene" id="scene-8">
+      <div class="scene__text">
+        <span class="scene__num">Scène 8</span>
+        <h2 class="scene__title">L'IA réorganise la donnée</h2>
+        <p class="scene__desc">Un bras robotique range les blocs. Certains ne rentrent nulle part, d'autres finissent au mauvais endroit.</p>
+      </div>
+      <div class="scene__stage">
+        <svg viewBox="0 0 520 340" role="img" aria-label="Un bras robotique déplace des blocs de données, certains mal placés">
+          <path data-anim="arm" d="M60 40v70l108 54" class="st-stroke" stroke-width="6"/>
+          <circle cx="60" cy="40" r="9" class="st-fill-accent"/>
+          <circle cx="60" cy="110" r="7" class="st-fill-accent"/>
+          <rect data-anim="grab" x="152" y="146" width="44" height="34" rx="6" class="st-accent"/>
+
+          <rect x="240" y="96" width="230" height="180" rx="12" class="st-fill-panel"/>
+          <path d="M240 156h230M240 216h230M355 96v180" class="st-muted" stroke-dasharray="4 6"/>
+
+          <rect data-anim="block-ok" x="262" y="112" width="72" height="28" rx="6" class="st-fill-accent" opacity="0.8"/>
+          <rect data-anim="block-ok" x="378" y="172" width="72" height="28" rx="6" class="st-fill-accent" opacity="0.8"/>
+          <rect data-anim="block-wrong" x="266" y="230" width="80" height="28" rx="6" class="st-fill-danger" opacity="0.85"/>
+          <rect data-anim="block-out" x="392" y="292" width="88" height="28" rx="6" class="st-fill-warn" opacity="0.9"/>
+          <text x="436" y="286" text-anchor="middle" class="st-label st-label--warn">ne rentre pas</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Scène 9 -->
+    <section class="scene" id="scene-9">
+      <div class="scene__text">
+        <span class="scene__num">Scène 9</span>
+        <h2 class="scene__title">Le recruteur reçoit un dossier dégradé</h2>
+        <p class="scene__desc">Ce qu'il lit n'est plus un parcours : c'est une reconstruction approximative, incomplète et contradictoire.</p>
+      </div>
+      <div class="scene__stage">
+        <svg viewBox="0 0 520 340" role="img" aria-label="Un recruteur perplexe face à un dossier reconstruit">
+          <g data-anim="recruiter">
+            <circle cx="110" cy="130" r="28" class="st-stroke"/>
+            <path d="M110 158v72" class="st-stroke"/>
+            <path d="M110 178l-32 26M110 178l34 20" class="st-stroke"/>
+            <path d="M110 230l-24 34M110 230l24 34" class="st-stroke"/>
+            <path d="M98 144q12 -10 24 0" class="st-stroke"/>
+            <text x="110" y="298" text-anchor="middle" class="st-label">Recruteur</text>
+          </g>
+          <text data-anim="question" x="160" y="88" class="st-label st-label--warn" font-size="34">?</text>
+
+          <g data-anim="folder">
+            <rect x="240" y="86" width="240" height="176" rx="12" class="st-fill-panel"/>
+            <rect x="264" y="112" width="140" height="16" rx="4" class="st-fill-muted" transform="rotate(-3 334 120)"/>
+            <rect x="264" y="144" width="74" height="16" rx="4" class="st-fill-danger" opacity="0.8"/>
+            <rect x="350" y="144" width="106" height="16" rx="4" class="st-fill-muted" transform="rotate(2 403 152)"/>
+            <rect x="264" y="176" width="182" height="16" rx="4" class="st-fill-muted" transform="rotate(-2 355 184)"/>
+            <rect x="264" y="208" width="52" height="16" rx="4" class="st-fill-danger" opacity="0.8"/>
+            <text x="360" y="248" text-anchor="middle" class="st-label st-label--danger">Donnée reconstruite</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Scène 10 -->
+    <section class="scene scene--punch" id="scene-10">
+      <p class="punch-line" data-anim="punch">
+        C'est sur cette donnée brisée que vous devez choisir
+        <em>5 personnes sur 200 candidatures.</em>
+      </p>
+    </section>
+
+    <!-- Scène 11 -->
+    <section class="scene" id="scene-11">
+      <div class="scene__text">
+        <span class="scene__num">Scène 11</span>
+        <h2 class="scene__title">Le coût réel de la donnée brisée</h2>
+        <p class="scene__desc">L'erreur de recrutement n'est pas un accident : c'est la conséquence statistique d'une information dégradée.</p>
+      </div>
+      <div class="scene__stage">
+        <div class="figures">
+          <div class="figure-card" data-anim="figure">
+            <span class="figure-card__value" data-count-to="30" data-count-suffix="%">0%</span>
+            <span class="figure-card__label">d'échecs à 6 mois (20–30 %)</span>
+            <div class="figure-card__bar"><span data-bar="30"></span></div>
+          </div>
+          <div class="figure-card" data-anim="figure">
+            <span class="figure-card__value" data-count-to="50" data-count-suffix="%">0%</span>
+            <span class="figure-card__label">d'échecs à 12 mois</span>
+            <div class="figure-card__bar"><span data-bar="50"></span></div>
+          </div>
+          <div class="figure-card" data-anim="figure">
+            <span class="figure-card__value" data-count-to="45" data-count-suffix=" k€">0</span>
+            <span class="figure-card__label">coût moyen d'un recrutement raté</span>
+            <div class="figure-card__bar"><span data-bar="72"></span></div>
+          </div>
+          <div class="figure-card" data-anim="figure">
+            <span class="figure-card__value" data-count-to="200" data-count-suffix=" h">0</span>
+            <span class="figure-card__label">perdues par poste à retraiter</span>
+            <div class="figure-card__bar"><span data-bar="88"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scène 12 -->
+    <section class="scene scene--outro" id="scene-12">
+      <div class="scene__text">
+        <span class="scene__num">Scène 12</span>
+        <h2 class="scene__title">HR‑X restaure la donnée</h2>
+        <p class="scene__desc">Riche. Typée. Exploitable. Un format ouvert où le parcours reste intact, du candidat jusqu'au recruteur.</p>
+        <a class="outro-cta" href="{{ url_for('demo_hrx.index') }}">
+          Créer mon HR‑X
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+      <div class="scene__stage">
+        <pre class="hrx-code" data-anim="code">{
+  "identity": { "given_name": "…", "family_name": "…" },
+  "skills": [
+    { "label": "Python", "level": "expert", "evidence": ["…"] }
+  ],
+  "experiences": [
+    { "role": "…", "start": "2019-04", "end": "2024-01",
+      "outcomes": ["…"], "verified_by": "…" }
+  ],
+  "education": [ "…" ],
+  "credentials": [ "…" ]
+}</pre>
+      </div>
+    </section>
+
+    </div>
+    <div class="story-track" aria-hidden="true"></div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="{{ url_for('static', filename='js/story.js') }}" defer></script>
+</body>
+</html>

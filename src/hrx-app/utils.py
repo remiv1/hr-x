@@ -11,7 +11,7 @@ import os
 APP_DIR = os.path.dirname(__file__)
 SCHEMA_REMOTE = "https://schema.audit-io.fr/hr-x/v1.0/schema"
 SCHEMA_PATH = os.path.abspath(
-    os.path.join(APP_DIR, "..", "hrx", "models", "hrx-schema-v1.json")
+    os.path.join(APP_DIR, "datas", "hrx-schema-v1.json")
 )
 
 def load_schema() -> dict[str, Any]:

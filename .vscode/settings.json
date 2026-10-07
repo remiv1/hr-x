@@ -1,4 +1,6 @@
 {
     "python-envs.defaultEnvManager": "ms-python.python:venv",
-    "makefile.configureOnOpen": false
+    "makefile.configureOnOpen": false,
+    "chat.editor.preferCopilotHarness": false,
+    "chat.copilotHarnessIntroduction.mode": "off"
 }

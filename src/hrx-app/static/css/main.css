@@ -11,12 +11,16 @@ body {
   background: linear-gradient(160deg, #f0f9ff 0%, #f8fafc 45%, #f0fdf4 100%);
   color: #0f172a;
   margin: 0;
-  padding: 24px 24px 100px;
+  padding: 24px 24px 0;
   line-height: 1.5;
 }
 
 body.modal-open {
   overflow: hidden;
+}
+
+main {
+  padding-bottom: 100px;
 }
 
 .container {
@@ -582,7 +586,10 @@ button:disabled {
 
 @media (max-width: 640px) {
   body {
-    padding: 12px 12px 88px;
+    padding: 12px 12px 0;
+  }
+  main {
+    padding-bottom: 88px;
   }
   .row {
     flex-direction: column;

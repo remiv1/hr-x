@@ -17,12 +17,13 @@ body {
   background: linear-gradient(160deg, #f0f9ff 0%, #f8fafc 45%, #f0fdf4 100%);
   color: $text;
   margin: 0;
-  padding: 24px 24px 100px; // espace pour la sticky bar
+  padding: 24px 24px 0;
   line-height: 1.5;
 }
 body.modal-open { overflow: hidden; }
 
 // ---- Layout ----
+main { padding-bottom: 100px; }
 .container { max-width: 1080px; margin: 0 auto; }
 
 // ---- Header ----
@@ -547,7 +548,8 @@ button:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important
 
 // ---- Responsive ----
 @media (max-width: 640px) {
-  body { padding: 12px 12px 88px; }
+  body { padding: 12px 12px 0; }
+  main { padding-bottom: 88px; }
   .row { flex-direction: column; }
   .card-heading { flex-direction: column; align-items: flex-start; }
   .modal-dialog { padding: 16px; }

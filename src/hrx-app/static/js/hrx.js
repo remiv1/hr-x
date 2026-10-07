@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function updatePreview() {
     const today = new Date().toISOString().slice(0, 10);
     const obj   = {
-      '$hrx': { version: '1.0', schema: 'https://schema.audit-io.fr/hrx/1.0', date: today },
+      '$hrx': { version: '1.0', schema: 'https://schema.audit-io.fr/hr-x/v1.0/schema', date: today },
       identity: gatherIdentity()
     };
 
@@ -637,7 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
   validateBtn?.addEventListener('click', async () => {
     try {
       const data = JSON.parse(preview.value);
-      const res  = await fetch('/validate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+      const res  = await fetch('/demo/validate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
       const j    = await res.json();
       if (j.ok) {
         showToast('Fichier HRX valide ✓', 'success');
@@ -655,7 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       const data = JSON.parse(preview.value);
-      const res  = await fetch('/download', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+      const res  = await fetch('/demo/download', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
       if (!res.ok) {
         const j = await res.json();
         showToast('Erreur : ' + (j.errors || []).join(', '), 'error', 5000);

@@ -3,5 +3,12 @@
   <div id="education-list">
     {% include '_education_item.html' %}
   </div>
-  <button class="add-btn" hx-get="/section/new/education" hx-target="#education-list" hx-swap="beforeend">+ Ajouter une formation</button>
+  <button
+    class="add-btn"
+    hx-get="{{ url_for('demo_hrx.new_item', item='education') }}"
+    hx-target="#education-list"
+    hx-swap="beforeend"
+  >
+    + Ajouter une formation
+  </button>
 </div>
